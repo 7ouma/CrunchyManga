@@ -26,11 +26,9 @@ def xord(bytear, key):
 def downloadImage(imageUrl,image):
     try:
         if int(image) <= 9:
-            image = "00000" + image + ".jpg"
-        elif int(image) <= 99:
-            image = "0000" + image + ".jpg"
-        elif int(image) <= 999:
-            image = "000" + image + ".jpg"
+            image = "0" + image + ".jpg"
+        else:
+            image = image + ".jpg"
     except:
         image = image + ".jpg"
     try:
