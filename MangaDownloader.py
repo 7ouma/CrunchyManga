@@ -1,10 +1,10 @@
 # -*- coding: cp1252 -*-
 '''
-Crunchyroll MangaDownloader v0.2 (Crunchymanga v0.2 for short).
+Crunchyroll MangaDownloader v0.2.1 (Crunchymanga v0.2.1 for short).
 All credit goes to Miguel A(Touman).
 You can use this script as suits you. Just do not forget to leave the credit.
 
-If you are in any doubt whatsoever about how to use this script do not hesitate to tell me. Contact me at 7ouman@gmail.com and I'll try to respond as soon as possible :).
+If you are in any doubt whatsoever about how to use this script do not hesitate to tell me. Contact me at 7ouman@gmail.com and I'll try to respond as soon as possible.
 
 Beautifulsoup is the only external library used.
 '''
@@ -307,6 +307,7 @@ def MangaDownloader(url):
                     imagen[c2] = item["image_url"]
                 c2=c2+1
             Directorio(titulo,nombrecap,"0","")
+            cc = 1
             while cc <= len(imagen):     
                 print "Downloading page %d/%d"%(cc,len(imagen))
                 downloadImage(imagen[cc-1],str(cc))
@@ -360,7 +361,7 @@ def principal():
         principal()
     elif seleccion == 4:
         print """
-Crunchyroll MangaDownloader v0.2 (Crunchymanga v0.2 for short).
+Crunchyroll MangaDownloader v0.2.1 (Crunchymanga v0.2.1 for short).
 All credit goes to Miguel A(Touman).
 You can use this script as suits you. Just do not forget to leave the credit.
 
