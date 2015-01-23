@@ -4,7 +4,7 @@ Crunchyroll MangaDownloader v0.2 (Crunchymanga v0.2 for short).
 All credit goes to Miguel A(Touman).
 You can use this script as suits you. Just do not forget to leave the credit.
 
-If you are in any doubt whatsoever about how to use this script do not hesitate to tell me. Contact me at 7ouman@gmail.com and I'll try to respond as soon as possible.
+If you are in any doubt whatsoever about how to use this script do not hesitate to tell me. Contact me at 7ouman@gmail.com and I'll try to respond as soon as possible :).
 
 Beautifulsoup is the only external library used.
 '''
