@@ -9,7 +9,12 @@ If you have a premium account you can download all the chapters, series, volumes
 v0.2 - 22/01/2015
 -------------------------------------------------------
 
-The script had stopped working due to the last crunchyroll update. Added some minimal fixes and now the script is in english.
+- The script had stopped working due to the last crunchyroll update. Added some minimal fixes and now the script is in english.
+
+v0.2.1 - 23/01/2015
+-------------------------------------------------------
+
+- Complete series downloads have been fixed in this update.
 
 *********************************************
 Found a typo? Contact me at 7ouman@gmail.com 
