@@ -1,13 +1,12 @@
 # -*- coding: cp1252 -*-
 '''
-Script realizado por Miguel A(Touman).
-Pueden usarlo como mejor les convenga, editarlo para que se adapte sus necesidades y todo lo demás que se les ocurra.
-Solo recuerden dejar los creditos.
-Crunchyroll MangaDownloader.
+Crunchyroll MangaDownloader v0.2 (Crunchymanga v0.2 for short).
+All credit goes to Miguel A(Touman).
+You can use this script as suits you. Just do not forget to leave the credit.
 
-Si tienes alguna duda del funcionamiento del programa no dudes en enviarmela a touman@hotmail.com
+If you are in any doubt whatsoever about how to use this script do not hesitate to tell me. Contact me at 7ouman@gmail.com and I'll try to respond as soon as possible.
 
-Beautifulsoup es la única librería externa usada.
+Beautifulsoup is the only external library used.
 '''
 from itertools import izip, cycle
 import re
@@ -42,7 +41,7 @@ def downloadImage(imageUrl,image):
             except:
                 cn = cn + 1
                 if cn == 9:
-                    print "Error al descargar la imagen."
+                    print "Error downloading the image."
     f = open(image,'wb')
     f.write(xord(descarga, 'B'))
     f.close()
@@ -116,10 +115,10 @@ def login(usuario,password):
     req = opener.open(url)
     html = req.read()
     if re.search(usuario+'(?i)',html):
-            print 'Te has logeado satisfactoriamente.\n\n'
+            print 'You have been successfully logged in.\n\n'
             cookies.save()
     else:
-            print 'Ha fallado el logeo, verifica que estás introduciendo un usuario y una contraseña correcta, luego intenta una vez más\n\n'
+            print 'Failed to verify your username and/or password. Please try again.\n\n'
 def MangaDownloader(url):    
     cc = 1    
     if url[0:8] == "https://":
@@ -128,7 +127,7 @@ def MangaDownloader(url):
         url = 'http://' + url
     if re.match(r"^(http:\/\/)(w{3}\.)?(crunchyroll\.com\/comics_read(\/manga)?\?volume\_id\=[0-9]+&chapter\_num\=[0-9]+\.[0-9])",url): #Crunchyroll por episodios.
         try:
-            print "Analizando URL..."
+            print "Analyzing link..."
             html= download(url)
             soup = BeautifulSoup(html)
             titulo = soup.find(u"span", {u"itemprop":u"title"}).text
@@ -141,7 +140,7 @@ def MangaDownloader(url):
             nombrecap = numero_cap[:numero_cap.find('.00')]
             sesion_id = manga[n]
         except:
-            print "El enlace ciertamente es de Crunchyroll, pero parece que no está correcto."
+            print "The link is certainly from Crunchyroll, but it seems that it's not correct. Verify it and try again."
             return
         cr_auth = "http://api-manga.crunchyroll.com/cr_authenticate?auth=&session_id="+sesion_id+"&version=0&format=json"
         html = download(cr_auth)
@@ -160,10 +159,12 @@ def MangaDownloader(url):
             if item["number"] == str(numero_cap):
                 chapter_id = item["chapter_id"]
         if chapter_id == "":
-            print u"\nEl capitulo %s no está disponible. Intenta más tarde.\n"%numero_cap.replace(".00","")
+            print u"\nThe chapter %s is not currently unavailable, try again later.\n"%numero_cap.replace(".00","")
             return
         else:
-            url_capitulo = "http://api-manga.crunchyroll.com/chapter?session_id="+sesion_id+"&auth="+cr_auth+"&format=json&version=0&chapter_id="+chapter_id
+            #"http://api-manga.crunchyroll.com/list_chapter?session_id="+sesion_id+"&chapter_id="+chapter_id+"&auth="+cr_auth
+            #"http://api-manga.crunchyroll.com/chapter?session_id="+sesion_id+"&auth="+cr_auth+"&format=json&version=0&chapter_id="+chapter_id
+            url_capitulo = "http://api-manga.crunchyroll.com/list_chapter?session_id="+sesion_id+"&chapter_id="+chapter_id+"&auth="+cr_auth
             try:
                 html= download(url_capitulo)
                 soup = json.loads(html)
@@ -176,18 +177,18 @@ def MangaDownloader(url):
                         imagen[c] = item["image_url"]
                     c=c+1
             except:
-                print "\n\nTienes que ser usuario premium para poder bajar este capitulo.\n ¿Lo eres? Entonces logeate."
+                print "\n\nYou have to be premium user in order to download this chapter. "
                 return
-            print u"\nComenzando a descargar %s - %s..."%(titulo,nombrecap)
+            print u"\nDownloading chapter %s - %s..."%(titulo,nombrecap)
             Directorio(titulo,nombrecap,"0","")
             while cc <= len(imagen):     
-                print "Descargando imagen %d/%d \n"%(cc,len(imagen))                
+                print "Downloading page %d/%d \n"%(cc,len(imagen))                
                 downloadImage(imagen[cc-1],str(cc))
                 cc = cc + 1
     elif re.match(r"^(http:\/\/)(w{3}\.)?(crunchyroll\.com\/comics_read)(\/manga)?(\?volume\_id\=[0-9]+)$",url): #Crunchyroll por volumenes
         volume = re.match(r"^(http:\/\/)(w{3}\.)?(crunchyroll\.com\/comics_read)(\/manga)?(\?volume\_id\=([0-9]+))$",url) 
         try:
-            print "Analizando URL..."            
+            print "Analyzing link..."
             html= download(url)
             soup = BeautifulSoup(html)
             manga = soup.find("object",{u"id":u"showmedia_videoplayer_object"}).find("embed",{u"type":u"application/x-shockwave-flash"}).get("flashvars")
@@ -196,7 +197,7 @@ def MangaDownloader(url):
             serie_id = manga[1][:manga[1].find('&chapterNumber')]
             sesion_id = manga[n]
         except:
-            print "El enlace ciertamente es de Crunchyroll, pero parece que no está correcto."
+            print "The link is certainly from Crunchyroll, but it seems that it's not correct. Verify it and try again."
             return
         url_serie = "http://api-manga.crunchyroll.com/chapters?series_id="+serie_id
         html= download(url_serie)
@@ -219,18 +220,20 @@ def MangaDownloader(url):
             for item in soup["data"]["auth"]:
                 cr_auth=cr_auth+item
         except:
-            print "Para descargar por volumenes en crunchyroll tienes que ser usuario premium. Los usuarios no premium solo pueden descargar el último episodio."
+            print "To download volumes you need a premium account. Standard accounts can only download the latest chapter."
             return
         c = 0
         cv = True
         while c < len(capitulo):
             nombrecap = capitulo[c].replace(".00","")
-            print "Descargando capitulo %d/%d"%(c+1,len(capitulo))
+            print "Downloading chapter %d/%d"%(c+1,len(capitulo))
             if volumen == "0":
-                print "Descargando %s - %s"%(titulo,nombrecap)
+                print "Downloading %s - %s"%(titulo,nombrecap)
             else:
-                print "Descargando %s Vol.%s ch.%s"%(titulo,volumen,nombrecap)
-            url_capitulo = "http://api-manga.crunchyroll.com/chapter?session_id="+sesion_id+"&auth="+cr_auth+"&format=json&version=0&chapter_id="+chapter_id[c]
+                print "Downloading %s Vol.%s ch.%s"%(titulo,volumen,nombrecap)
+            #"http://api-manga.crunchyroll.com/list_chapter?session_id="+sesion_id+"&chapter_id="+chapter_id[c]+"&auth="+cr_auth
+            #"http://api-manga.crunchyroll.com/chapter?session_id="+sesion_id+"&auth="+cr_auth+"&format=json&version=0&chapter_id="+chapter_id[c]
+            url_capitulo = "http://api-manga.crunchyroll.com/list_chapter?session_id="+sesion_id+"&chapter_id="+chapter_id[c]+"&auth="+cr_auth
             html= download(url_capitulo)
             soup = json.loads(html)
             c2=0
@@ -249,7 +252,7 @@ def MangaDownloader(url):
             Directorio(titulo,nombrecap,volumen,volcover)
             cc = 1
             while cc <= len(imagen):     
-                print "Descargando imagen %d/%d"%(cc,len(imagen))
+                print "Downloading page %d/%d"%(cc,len(imagen))
                 downloadImage(imagen[cc-1],str(cc))
                 cc = cc + 1
             c = c+1
@@ -283,14 +286,16 @@ def MangaDownloader(url):
             for item in soup["data"]["auth"]:
                 cr_auth=cr_auth+item
         except:
-            print "Para descargar series completas en crunchyroll tienes que ser usuario premium. Los usuarios no premium solo pueden descargar el último episodio."
+            print "To download complete series you need a premium account. Standard accounts can only download the latest chapter."
             return
         c = 0
         while c < len(capitulo):
             nombrecap = capitulo[c].replace(".00","")
-            print "Descargando capitulo %d/%d"%(c+1,len(capitulo))
-            print "Descargando %s capitulo %s"%(titulo,nombrecap)
-            url_capitulo = "http://api-manga.crunchyroll.com/chapter?session_id="+sesion_id+"&auth="+cr_auth+"&format=json&version=0&chapter_id="+chapter_id[c]
+            print "Downloading chapter %d/%d"%(c+1,len(capitulo))
+            print "Downloading %s - %s"%(titulo,nombrecap)
+            #"http://api-manga.crunchyroll.com/list_chapter?session_id="+sesion_id+"&chapter_id="+chapter_id[c]+"&auth="+cr_auth
+            #"http://api-manga.crunchyroll.com/chapter?session_id="+sesion_id+"&auth="+cr_auth+"&format=json&version=0&chapter_id="+chapter_id[c]
+            url_capitulo = "http://api-manga.crunchyroll.com/list_chapter?session_id="+sesion_id+"&chapter_id="+chapter_id[c]+"&auth="+cr_auth
             html= download(url_capitulo)
             soup = json.loads(html)
             c2=0
@@ -303,47 +308,46 @@ def MangaDownloader(url):
                 c2=c2+1
             Directorio(titulo,nombrecap,"0","")
             while cc <= len(imagen):     
-                print "Descargando imagen %d/%d"%(cc,len(imagen))
+                print "Downloading page %d/%d"%(cc,len(imagen))
                 downloadImage(imagen[cc-1],str(cc))
                 cc = cc + 1
             c = c+1
             os.chdir(directorioOriginal)
     else:
-        print "ERROR: El enlace ingresado no es de Crunchyroll/Manga"    
+        print "ERROR: The link is not from Crunchyroll/Manga"    
     os.chdir(directorioOriginal)
 def PaqueteEnlace():
     c = 1
     try:
-            with open('enlaces.txt'): pass
+            with open('links.txt'): pass
     except IOError:
-            enlaces = open('enlaces.txt','w')
+            enlaces = open('links.txt','w')
             enlaces.close()
 ##            print "The file \"enlaces.txt\" has been created. Please edit it with your links(One per line)."
-            print "El archivo \"enlaces.txt\" ha sido creado. Por favor editalo con tus enlaces(Uno por linea)."
+            print "The file \"links.txt\" has been created. Please edit it with your links(One per line)."
             return
     enlaces = open('enlaces.txt','r')
     enlaces = enlaces.readlines()
     n_len = len(enlaces)
     if n_len > 0:
         while c <= n_len:
-            print "Descargando enlace %d/%d"%(c,n_len)
+            print "Downloading link %d/%d"%(c,n_len)
             MangaDownloader(u""+str(enlaces[c-1].replace("\n","")))
             c = c + 1
     else:
 ##        print "The file \"enlaces.txt\" is empty. Please edit it with your links(One per line)."
-        print "El archivo \"enlaces.txt\" está vacío. Por favor editalo con tus enlaces(Uno por linea)."
+        print "The file \"links.txt\" is empty. Please edit it with your links(One per line)."
 def principal():
-    print "Selecciona una opción"
+    print "Options:"
 ##    print "1.- Download\n2.- Download Pack\n3.- Login \n0.- Exit"
-    print "1.- Descargar\n2.- Descargar paquete de enlaces\n3.- Login \n0.- Exit"
+    print "1.- Download\n2.- Download pack\n3.- Login \n4.- About \n0.- Exit"
     try:
         seleccion = int(input("> "))
     except:
-        print "Has introducido una opción incorrecta."
+        print "The option you entered is wrong."
         principal()
     if seleccion == 1:
-        print "Introduce el enlace"
-        url=u""+raw_input(">")
+        url=u""+raw_input("Link: ")
         MangaDownloader(url)
         principal()
     elif seleccion == 2 :
@@ -354,9 +358,19 @@ def principal():
         password = raw_input(u"Password: ")
         login(usuario, password)
         principal()
+    elif seleccion == 4:
+        print """
+Crunchyroll MangaDownloader v0.2 (Crunchymanga v0.2 for short).
+All credit goes to Miguel A(Touman).
+You can use this script as suits you. Just do not forget to leave the credit.
+
+If you are in any doubt whatsoever about how to use this script do not hesitate to tell me. Contact me at 7ouman@gmail.com and I'll try to respond as soon as possible.
+
+Beautifulsoup is the only external library used."""
+        principal()
     elif seleccion == 0:
         SystemExit()
     else:
-        print "ERROR: El numero de opción ingresada es incorrecta. Intenta una vez más"
+        print "ERROR: The option you entered is wrong."
         principal()
 principal()
