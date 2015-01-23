@@ -326,7 +326,7 @@ def PaqueteEnlace():
 ##            print "The file \"enlaces.txt\" has been created. Please edit it with your links(One per line)."
             print "The file \"links.txt\" has been created. Please edit it with your links(One per line)."
             return
-    enlaces = open('enlaces.txt','r')
+    enlaces = open('links.txt','r')
     enlaces = enlaces.readlines()
     n_len = len(enlaces)
     if n_len > 0:
