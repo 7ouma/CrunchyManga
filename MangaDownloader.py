@@ -1,6 +1,6 @@
 # -*- coding: cp1252 -*-
-'''
-Crunchyroll MangaDownloader v0.2.1 (Crunchymanga v0.2.1 for short).
+about='''
+Crunchyroll MangaDownloader v0.2.2 (Crunchymanga v0.2.2 for short).
 All credit goes to Miguel A(Touman).
 You can use this script as suits you. Just do not forget to leave the credit.
 
@@ -125,7 +125,8 @@ def MangaDownloader(url):
         url = 'http://' + url[8:]
     if url[0:7] != 'http://':
         url = 'http://' + url
-    if re.match(r"^(http:\/\/)(w{3}\.)?(crunchyroll\.com\/comics_read(\/manga)?\?volume\_id\=[0-9]+&chapter\_num\=[0-9]+\.[0-9])",url): #Crunchyroll por episodios.
+        
+    if re.match(r"^(http:\/\/)(w{3}\.)?(crunchyroll\.com\/comics_read(\/manga)?\?volume\_id\=[0-9]+&chapter\_num\=[0-9]+\.[0-9])",url) or re.match(r"^(http:\/\/)(w{3}\.)?(crunchyroll\.com\/comics_read(\/manga)?\?series\_id\=[0-9]+&chapter\_num\=[0-9]+\.[0-9])",url): #Crunchyroll por episodios.
         try:
             print "Analyzing link..."
             html= download(url)
@@ -360,14 +361,7 @@ def principal():
         login(usuario, password)
         principal()
     elif seleccion == 4:
-        print """
-Crunchyroll MangaDownloader v0.2.1 (Crunchymanga v0.2.1 for short).
-All credit goes to Miguel A(Touman).
-You can use this script as suits you. Just do not forget to leave the credit.
-
-If you are in any doubt whatsoever about how to use this script do not hesitate to tell me. Contact me at 7ouman@gmail.com and I'll try to respond as soon as possible.
-
-Beautifulsoup is the only external library used."""
+        print about
         principal()
     elif seleccion == 0:
         SystemExit()
