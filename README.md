@@ -16,6 +16,11 @@ v0.2.1 - 23/01/2015
 
 - Complete series downloads have been fixed in this update.
 
+v0.2.2 - 23/01/2015
+-------------------------------------------------------
+
+- Added new regex. This fixes the "ERROR: The link is not from Crunchyroll/Manga" with new crunchyroll links (individual chapters). 
+
 *********************************************
 Found a typo? Contact me at 7ouman@gmail.com 
 *********************************************
