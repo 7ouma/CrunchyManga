@@ -1,12 +1,14 @@
 # -*- coding: cp1252 -*-
 about='''
-Crunchyroll MangaDownloader v0.2.2 (Crunchymanga v0.2.2 for short).
+Crunchyroll MangaDownloader v0.2.2.2 (Crunchymanga v0.2.2.2 for short).
 All credit goes to Miguel A(Touman).
 You can use this script as suits you. Just do not forget to leave the credit.
 
 If you are in any doubt whatsoever about how to use this script do not hesitate to tell me. Contact me at 7ouman@gmail.com and I'll try to respond as soon as possible.
 
 Beautifulsoup is the only external library used.
+
+https://github.com/7ouma/CrunchyManga
 '''
 from itertools import izip, cycle
 import re
@@ -262,7 +264,7 @@ def MangaDownloader(url):
         html= download(url)
         soup = BeautifulSoup(html)
         serie_id = soup.find(u"span",{u"id":u"sharing_add_queue_button"}).get(u"group_id")
-        volumen_id = soup.find(u"li",{u"class":u"queue-item volume-simul"}).get(u"volume_id")
+        volumen_id = soup.find(u"li",{ur"class":re.compile(u"queue-item volume-")}).get(u"volume_id")    
         url_vol = "http://www.crunchyroll.com/comics_read/manga?volume_id="+volumen_id
         html= download(url_vol)
         soup = BeautifulSoup(html)
