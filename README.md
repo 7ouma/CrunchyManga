@@ -25,6 +25,8 @@ v0.2.2.1 - 10/02/2015
 -------------------------------------------------------
 
 - Complete series downloads when the manga has no individual chapters(simulpub bar) have been fixed in this update. Ex: http://www.crunchyroll.com/comics/manga/japan-sinks/volumes
+ 
+
 *********************************************
 Found a typo? Contact me at 7ouman@gmail.com 
 *********************************************
