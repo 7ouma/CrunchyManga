@@ -1,6 +1,6 @@
 # -*- coding: cp1252 -*-
 about='''
-Crunchyroll MangaDownloader v0.2.2.2 (Crunchymanga v0.2.2.2 for short).
+Crunchyroll MangaDownloader v0.2.2.1 (Crunchymanga v0.2.2.1 for short).
 All credit goes to Miguel A(Touman).
 You can use this script as suits you. Just do not forget to leave the credit.
 
