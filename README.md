@@ -29,8 +29,8 @@ v0.2.2.1 - 10/02/2015
 v0.3 - 17/02/2015
 -------------------------------------------------------
 - Added support to ComicPo! and Artist Alley.
-	- The last regex i added was redundant. Fixed.
-	- Added config file, this file is created once you run the script. You can edit as you like, but, if you edit it while the script is running, please restart the script. The options:
+- The last regex i added was redundant. Fixed.
+- Added config file, this file is created once you run the script. You can edit as you like, but, if you edit it while the script is running, please restart the script. The options:
 		* dir: Your directory, if the directory doesn't exist, the script will take the script folder as default. Please note that you'll need to use double Backslash when using windows. Example: "dir": "c:\\manga" instead of "dir":"c:\manga"
 		* zip: I think i don't have to say what does this option do. values: true/false
 		* download_volumes: this only works with complete series downloads. if this option is true(activated), the script will download all the volumes available with covers and so, then the rest of the individial episodes.values: true/false
@@ -40,7 +40,8 @@ v0.3 - 17/02/2015
 		* mangadownloader.py -u link / mangadownloader.py --url link. Please note that you'll need to use double quotation marks in some cases, to avoid error with the & from the url/link.
 		* mangadownloader.py -l user password / mangadownloader.py --link user password. Please note that you'll need to use double quotation marks in some cases, to avoid error with blanks and some symbols.
 		* mangadownloader.py -h / mangadownloader.py --help. Explains the script (parameters) usage.
-	- Added "Download ALL MANGAS from crunchyroll" option. I think i don't have to say what does this option do.
+- Added "Download ALL MANGAS from crunchyroll" option. I think i don't have to say what does this option do.
+
 	
 
 *********************************************
