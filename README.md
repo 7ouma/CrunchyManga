@@ -36,7 +36,7 @@ v0.3 - 17/02/2015
 		* download_volumes: this only works with complete series downloads. if this option is true(activated), the script will download all the volumes available with covers and so, then the rest of the individial episodes.values: true/false
 		* overwrite_folders: if false and the script detects that the chapter folder you are downloading exists, the download will stop. If you're downloading a whole series/volume, the script will skip the chapter and continue. Please, note that if the chapter is incomplete, you know. (Doesn't work with zip files yet). values: true/false
 		* delete_files_after_zip: Only works if zip is activated, once the file is downloaded and zipped, the folder will be deleted only remaining the zip file.values: true/false
-	- Added some console parameters. Don't worry about this, you can use the script as always, just clicking the mangadownloader.py file. This is just a test, that's why there are only two commands plus the help:
+- Added some console parameters. Don't worry about this, you can use the script as always, just clicking the mangadownloader.py file. This is just a test, that's why there are only two commands plus the help:
 		* mangadownloader.py -u link / mangadownloader.py --url link. Please note that you'll need to use double quotation marks in some cases, to avoid error with the & from the url/link.
 		* mangadownloader.py -l user password / mangadownloader.py --link user password. Please note that you'll need to use double quotation marks in some cases, to avoid error with blanks and some symbols.
 		* mangadownloader.py -h / mangadownloader.py --help. Explains the script (parameters) usage.
