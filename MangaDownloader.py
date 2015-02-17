@@ -12,7 +12,7 @@ Beautifulsoup is the only external library used.
 https://github.com/7ouma/CrunchyManga
 '''
 
-changelog='''
+changelog = '''
 CrunchyManga 0.3:
 	- Added support to ComicPo! and Artist Alley.
 	- The last regex i added was redundant. Fixed.
