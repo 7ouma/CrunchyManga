@@ -45,9 +45,13 @@ v0.3 - 17/02/2015
 		
 - Added "Download ALL MANGAS from crunchyroll" option. I think i don't have to say what does this option do.
 
-	
+v0.3.1 - 28/02/2015
+-------------------------------------------------------
+- The script works as always, same script, better syntax. Expect some other changes soon.
 
 *********************************************
-Found a typo? Contact me at 7ouman@gmail.com 
+Found a typo, a bug, wanna help?
+
+I'm still learning, so if you have any feedback, contact me at 7ouman@gmail.com 
 *********************************************
-Python 2.7.8
+Python 2.7.x
