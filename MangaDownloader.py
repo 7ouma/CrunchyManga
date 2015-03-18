@@ -289,8 +289,6 @@ class MangaDownloader():
                 if re.match(r"([0-9]+)(\.[0-9]{1,2})",numero_cap):
                     ch = re.match(r"([0-9]+)(\.[0-9]{1,2})",numero_cap)
                     ch = ch.groups()
-                    print ch
-                    print ch[1].__len__()
                     if ch[1].__len__() == 2:
                         numero_cap = numero_cap + "0"
                     x = numero_cap[-2:]
