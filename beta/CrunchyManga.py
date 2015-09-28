@@ -332,7 +332,7 @@ class MangaDownloader:
             #for i in nopermitido:manga_titulo = manga_titulo.replace(i,' ')
             manga_titulo = self.checkStr(manga_titulo)
             self.manga_titulo = manga_titulo
-            n = len(manga)-1
+            n = len(manga)-2
             serie_id = manga[1][:manga[1].find('&chapterNumber')]
             chapterNumber = self.numCap(manga[2][:manga[2].find('&server')])
             if chapterNumber: self.chapterNumber = chapterNumber[0]
