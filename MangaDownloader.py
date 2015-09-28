@@ -283,7 +283,7 @@ class MangaDownloader():
                 self.manga_titulo = self.manga_titulo.replace(':',' ')
                 manga = soup.find("object",{u"id":u"showmedia_videoplayer_object"}).find("embed",{u"type":u"application/x-shockwave-flash"}).get("flashvars")
                 manga = manga.split("=")
-                n = len(manga)-1
+                n = len(manga)-2
                 serie_id = manga[1][:manga[1].find('&chapterNumber')]
                 numero_cap = manga[2][:manga[2].find('&server')]
                 if re.match(r"([0-9]+)(\.[0-9]{1,2})",numero_cap):
@@ -354,7 +354,7 @@ class MangaDownloader():
                 soup = BeautifulSoup(html)
                 manga = soup.find("object",{u"id":u"showmedia_videoplayer_object"}).find("embed",{u"type":u"application/x-shockwave-flash"}).get("flashvars")
                 manga = manga.split("=")
-                n = len(manga)-1
+                n = len(manga)-2
                 serie_id = manga[1][:manga[1].find('&chapterNumber')]
                 sesion_id = manga[n]
             except:
@@ -467,7 +467,7 @@ class MangaDownloader():
                 soup = BeautifulSoup(html)
                 sesion_id = soup.find("object",{u"id":u"showmedia_videoplayer_object"}).find("embed",{u"type":u"application/x-shockwave-flash"}).get("flashvars")
                 sesion_id = sesion_id.split("=")
-                n = len(sesion_id)-1
+                n = len(sesion_id)-2
                 sesion_id = sesion_id[n]
                 url_serie = "http://api-manga.crunchyroll.com/chapters?series_id="+serie_id
                 html= self.download(url_serie)
