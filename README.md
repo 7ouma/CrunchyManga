@@ -1,3 +1,10 @@
+Update 22/03/16
+====
+I'll try to work on this project again, but i need your help, i need a premium account and i can't afford to buy one, and my paypal cc expired so i can't activate my free premium account. I've tried some cc generatos, but it doesn't work, or maybe i don't know how to use them, so if you have an account that you don't use, or know how to deal with those cc generators and can give me a free account, it would be great.
+
+Thanks!
+
+Guest passes are good too, but crunchyroll only allows you to activate 6 passes (i think) every 6 months.
 CrunchyManga
 ============
 Download Manga from Crunchyroll (Manga, ComicPo! and Artist Alley)
