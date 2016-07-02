@@ -612,7 +612,7 @@ if __name__ == '__main__':
             else:
                 seleccion = 0
                 print "\nOptions:"
-                print "1.- Download\n2.- Download pack\n3.- Login \n4.- Download ALL MANGAS from crunchyroll \n5.- About \n0.- Exit"
+        	print "1.- Download\n2.- Download everything in links.txt\n3.- Login \n4.- Download ALL THE MANGAS (from crunchyroll) \n5.- About \n0.- Exit"
                 try:
                     seleccion = int(input("> "))
                 except:
