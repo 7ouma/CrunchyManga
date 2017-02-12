@@ -1,10 +1,8 @@
-Update 22/03/16
+Update 12/02/17
 ====
-I'll try to work on this project again, but i need your help, i need a premium account and i can't afford to buy one, and my paypal cc expired so i can't activate my free premium account. I've tried some cc generatos, but it doesn't work, or maybe i don't know how to use them, so if you have an account that you don't use, or know how to deal with those cc generators and can give me a free account, it would be great.
+Crunchyroll has updated their login form and now is working with cloudflare anti DDOS protection. I'm working on fixing the script atm, if you want to help you can submit a pull request. I hope to get it done by the next few days, at least a hotfix.
 
-Thanks!
-
-Guest passes are good too, but crunchyroll only allows you to activate 6 passes (i think) every 6 months.
+Thank you!
 CrunchyManga
 ============
 Download Manga from Crunchyroll (Manga, ComicPo! and Artist Alley)
