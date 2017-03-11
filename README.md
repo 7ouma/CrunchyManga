@@ -1,7 +1,11 @@
 Update 11/03/17
 ====
 CrunchyManga now needs CFScrape in order to work.
+
+
 Simply run `pip install cfscrape`. The PyPI package is at https://pypi.python.org/pypi/cfscrape/
+
+
 Alternatively, clone [this](https://github.com/Anorov/cloudflare-scrape) repository and run `python setup.py install`.
 
 CrunchyManga
