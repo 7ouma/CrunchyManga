@@ -1,8 +1,9 @@
-Update 12/02/17
+Update 11/03/17
 ====
-Crunchyroll has updated their login form and now is working with cloudflare anti DDOS protection. I'm working on fixing the script atm, if you want to help you can submit a pull request. I hope to get it done by the next few days, at least a hotfix.
+CrunchyManga now needs CFScrape in order to work.
+Simply run `pip install cfscrape`. The PyPI package is at https://pypi.python.org/pypi/cfscrape/
+Alternatively, clone [this](https://github.com/Anorov/cloudflare-scrape) repository and run `python setup.py install`.
 
-Thank you!
 CrunchyManga
 ============
 Download Manga from Crunchyroll (Manga, ComicPo! and Artist Alley)
