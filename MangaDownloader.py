@@ -1,7 +1,7 @@
 #!/usr/bin/env python2.7
 # -*- coding: cp1252 -*-
 about='''
-Crunchyroll MangaDownloader v0.3.2.2 (Crunchymanga v0.3.2.2 for short).
+Crunchyroll MangaDownloader v0.3.2.3 (Crunchymanga v0.3.2.3 for short).
 All credit goes to Miguel A(Touman).
 You can use this script as suits you. Just do not forget to leave the credit.
 
@@ -27,12 +27,16 @@ import urllib
 from os import path
 import argparse
 from zipfile import *
+import cfscrape
+from cookielib import LWPCookieJar
 
 class MangaDownloader():
 
     def __init__(self):
         self.directorio = os.getcwd()
         self.read_config()
+        self.scraper = cfscrape.create_scraper()
+        self.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36"
 
 
     def xord(self,bytear, key):
@@ -223,46 +227,39 @@ class MangaDownloader():
         try:
                 with open('cookies.txt'): pass
         except (OSError, IOError):
-                cookies = cookielib.MozillaCookieJar('cookies.txt')
-                cookies.save()
-        cookies = cookielib.MozillaCookieJar('cookies.txt')
-        cookies.load() 
-        opener = urllib2.build_opener(
-            urllib2.HTTPRedirectHandler(),
-            urllib2.HTTPHandler(debuglevel=0),
-            urllib2.HTTPSHandler(debuglevel=0),
-            urllib2.HTTPCookieProcessor(cookies))
-        opener.addheaders =[('Referer', 'http://www.crunchyroll.com'),('User-Agent','Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.14) Gecko/20080404 Firefox/2.0.0.14')]
-        response = opener.open(url)
-        html = response.read()
-        cookies.save()
+                cookies = LWPCookieJar('cookies.txt')
+                cookies.save()      
+        cookies = self.scraper
+        cookies.cookies = LWPCookieJar('cookies.txt')
+        html = self.scraper.get(url).content
+        cookies.cookies.save()
         return html
     #
     def login(self,usuario,password):
         try:
                 with open('cookies.txt'): pass
         except IOError:
-                cookies = cookielib.MozillaCookieJar('cookies.txt')
+                cookies = LWPCookieJar('cookies.txt')
                 cookies.save()
-        url = 'https://www.crunchyroll.com/?a=formhandler'
-        data = {'formname' : 'RpcApiUser_Login', 'fail_url' : 'http://www.crunchyroll.com/login', 'name' : usuario, 'password' : password}
-        cookies = cookielib.MozillaCookieJar('cookies.txt')
-        cookies.load() 
-        opener = urllib2.build_opener(
-            urllib2.HTTPRedirectHandler(),
-            urllib2.HTTPHandler(debuglevel=0),
-            urllib2.HTTPSHandler(debuglevel=0),
-            urllib2.HTTPCookieProcessor(cookies))
-        opener.addheaders =[('Referer', "http://www.crunchyroll.com"),('User-Agent','Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.14) Gecko/20080404 Firefox/2.0.0.14')]
-        req = opener.open(url, urllib.urlencode(data))
+        url = 'https://www.crunchyroll.com/login'
+        cookies = self.scraper
+        cookies.cookies = LWPCookieJar('cookies.txt')
+        page = self.scraper.get(url).content
+        page = BeautifulSoup(page)
+        hidden = page.findAll("input",{u"type":u"hidden"})
+        hidden = hidden[1].get("value")
+        logindata = {'formname' : 'login_form', 'fail_url' : 'http://www.crunchyroll.com/login', 'login_form[name]' : usuario, 'login_form[password]' : password,'login_form[_token]': hidden,'login_form[redirect_url]':'/'}
+        req = self.scraper.post(url, data = logindata)
+        #galleta = self.scraper.cookies.get_dict()
+        #req = opener.open(url, urllib.urlencode(data))
         url = "http://www.crunchyroll.com"
-        req = opener.open(url)
-        html = req.read()
+        html = self.scraper.get(url).content
         if re.search(usuario+'(?i)',html):
                 print 'You have been successfully logged in.\n\n'
-                cookies.save()
+                cookies.cookies.save()
         else:
                 print 'Failed to verify your username and/or password. Please try again.\n\n'
+                cookies.cookies.save()
 
     def CrunchyManga(self):
         cc = 1
@@ -612,7 +609,7 @@ if __name__ == '__main__':
             else:
                 seleccion = 0
                 print "\nOptions:"
-        	print "1.- Download\n2.- Download everything in links.txt\n3.- Login \n4.- Download ALL THE MANGAS (from crunchyroll) \n5.- About \n0.- Exit"
+                print "1.- Download\n2.- Download pack\n3.- Login \n4.- Download ALL MANGAS from crunchyroll \n5.- About \n0.- Exit"
                 try:
                     seleccion = int(input("> "))
                 except:
