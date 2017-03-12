@@ -1,13 +1,13 @@
 #!/usr/bin/env python2.7
 # -*- coding: cp1252 -*-
 about='''
-Crunchyroll MangaDownloader v0.3.2.3 (Crunchymanga v0.3.2.3 for short).
+Crunchyroll MangaDownloader v0.3.2.4 (Crunchymanga v0.3.2.4 for short).
 All credit goes to Miguel A(Touman).
 You can use this script as suits you. Just do not forget to leave the credit.
 
-If you are in any doubt whatsoever about how to use this script do not hesitate to tell me. Contact me at 7ouman@gmail.com and I'll try to respond as soon as possible.
+If you are in any doubt whatsoever about how to use this script do not hesitate to tell me. Contact me at 7ouman@gmail.com and I'll try to reply as soon as possible.
 
-Beautifulsoup is the only external library used.
+Beautifulsoup and cfscrape (with its dependencies) are the only external libraries used.
 
 https://github.com/7ouma/CrunchyManga
 '''
@@ -231,6 +231,7 @@ class MangaDownloader():
                 cookies.save()      
         cookies = self.scraper
         cookies.cookies = LWPCookieJar('cookies.txt')
+        cookies.cookies.load()
         html = self.scraper.get(url).content
         cookies.cookies.save()
         return html
@@ -250,8 +251,6 @@ class MangaDownloader():
         hidden = hidden[1].get("value")
         logindata = {'formname' : 'login_form', 'fail_url' : 'http://www.crunchyroll.com/login', 'login_form[name]' : usuario, 'login_form[password]' : password,'login_form[_token]': hidden,'login_form[redirect_url]':'/'}
         req = self.scraper.post(url, data = logindata)
-        #galleta = self.scraper.cookies.get_dict()
-        #req = opener.open(url, urllib.urlencode(data))
         url = "http://www.crunchyroll.com"
         html = self.scraper.get(url).content
         if re.search(usuario+'(?i)',html):
@@ -269,8 +268,7 @@ class MangaDownloader():
         if chapters_:
             url = self.url.split ("[")
             ch_dwn = url[1]
-            self.url = url[0]
-            
+            self.url = url[0]            
         print "Analyzing link %s..."%self.url
         if re.match(r"^(http:\/\/)(w{3}\.)?(crunchyroll\.com\/comics_read(\/(manga|comipo|artistalley))?\?(volume\_id|series\_id)\=[0-9]+&chapter\_num\=[0-9]+(\.[0-9])?)",self.url): #Crunchyroll por episodios.
             try:
@@ -295,7 +293,7 @@ class MangaDownloader():
                         self.manga_numcap = numero_cap[:-1]
                 else:
                     self.manga_numcap = numero_cap
-                sesion_id = manga[n]
+                sesion_id = manga[n][:manga[n].find('&config_url')]
             except Exception,e:
                 print "The link is certainly from Crunchyroll, but it seems that it's not correct. Verify it and try again."
                 return
