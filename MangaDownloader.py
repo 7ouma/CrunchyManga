@@ -542,7 +542,7 @@ class MangaDownloader():
                     if self.zip and cc > 1 and descarga == 1:
                         self.zipmanga()
                     c = c+1
-                if temp:
+                if ch_dwn is not None and temp:
                     self.d_volumes = True
         else:
             print "ERROR: The link is not from Crunchyroll/Manga"
